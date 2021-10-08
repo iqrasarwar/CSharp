@@ -13,3 +13,6 @@
             string cgpa = Console.ReadLine();
             //interpolation string
             Console.WriteLine($"{name} you are {age} years old with cgpa {cgpa}.");
+            //output
+            Console.WriteLine("my name is {0} and this is {1}", "iqra", "csharp");//output is "my name is iqra and this is csharp"
+            
