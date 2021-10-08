@@ -67,3 +67,40 @@
 
             Console.WriteLine(hex);
             Console.WriteLine(binary);
+                                                      //strings
+            string pat = "\\\\mypc\\ shared\\project";
+            string path = @"\\mypc\shared\project";
+            string str = @"this is a 
+multi line 
+string";
+            Console.WriteLine(" {0} \n {1} \n {2}", pat, path, str);
+
+            //string text = @"This is a "string." in C#."; // error
+            //string text = @"This is a \"string\" in C#."; // error
+            string text = "This is a \"string\" in C#."; // valid
+            Console.WriteLine(text);
+
+            string code = "007";
+
+            Console.WriteLine($"the Code:{{{code}}}");//the code:{{007}}
+
+                                                                //dynamic data type
+            dynamic MyDynamicVar = 100;
+            Console.WriteLine("Value: {0}, Type: {1}", MyDynamicVar, MyDynamicVar.GetType());
+
+            MyDynamicVar = "Hello World!!";
+            Console.WriteLine("Value: {0}, Type: {1}", MyDynamicVar, MyDynamicVar.GetType());
+
+            MyDynamicVar = true;
+            Console.WriteLine("Value: {0}, Type: {1}", MyDynamicVar, MyDynamicVar.GetType());
+
+            MyDynamicVar = DateTime.Now;
+            Console.WriteLine("Value: {0}, Type: {1}", MyDynamicVar, MyDynamicVar.GetType());
+
+                                                                 //null data type
+            //if i is null assign zero to j
+
+            int? i = null;
+
+            int j = i ?? 0;
+            Console.WriteLine(j);
