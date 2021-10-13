@@ -42,3 +42,48 @@
             s2.Close();
             f1.Close();
             f2.Close();
+
+                        //reading writing bjects using strings(not objcet serializaion)
+
+
+using System.IO;
+
+namespace linked
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string cgpa, age;
+            FileStream f = new FileStream("file.txt", FileMode.Create);
+            StreamWriter sw = new StreamWriter(f);
+            for(int i=0;i<2;i++)
+            {
+                Console.WriteLine("Input cgpa");
+                cgpa = Console.ReadLine();
+                Console.WriteLine("Input age");
+                age = Console.ReadLine();
+                sw.WriteLine($"{cgpa}, {age}");
+            }
+            sw.Close();
+            f.Close();
+            FileStream f1 = new FileStream("file.txt", FileMode.Open);
+            StreamReader sr = new StreamReader(f1);
+            string fileData = sr.ReadLine();
+            while(fileData != null)
+            {
+                Console.WriteLine("Person's data");
+                string[] personData = fileData.Split(",");
+                foreach(string i in personData)
+                {
+                    Console.WriteLine(i);
+                }
+                fileData = sr.ReadLine();
+            }
+            sr.Close();
+            f1.Close();
+            
+        }
+    }
+}
+
