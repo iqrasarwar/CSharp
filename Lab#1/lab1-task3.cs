@@ -6,6 +6,17 @@ namespace task3
     {
         public static float calculateGPA(params int[] marks )
         {
+            //can use foreach loop here 
+            /*
+            int sum = 0,
+                i = 0;
+            foreach (int ii in marks)
+            {
+                sum += ii;
+                i++;
+            }
+            return (sum / i);
+            */
             var len = marks.Length;
             int sum = 0,
                 i = 0;
