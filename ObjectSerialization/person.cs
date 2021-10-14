@@ -14,7 +14,7 @@ namespace ConsoleApp3
             get { return cgpa; }
             set { cgpa = value; }
         }
-
+        [JsonIgnore] //to ignore it while serializing
         public int Age
         {
             get { return age; }
