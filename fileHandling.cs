@@ -133,14 +133,9 @@ namespace ConsoleApp3
             while((s=sr.ReadLine())!=null)
             {
                 string[] data = s.Split(",");
-                Console.WriteLine(data[0]);
-                Console.WriteLine(data[1]);
-                 Person per = new Person();
-                 Int32.TryParse(data[0], out int c);
-                 per.cgpa = c;
-                 Int32.TryParse(data[1], out int z);
-                per.age = z;
-                 p.Add(per);
+                Int32.TryParse(data[0], out int c);
+                Int32.TryParse(data[1], out int z);
+                p.Add(new Person() {cgpa = c , age = z });
             }
             sr.Close();
             return p;
