@@ -88,7 +88,7 @@ namespace linked
 }
 
                       //reading writing objects using strings by class functions(not objcet serializaion)
-//program.cs main file
+//person.cs
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -144,7 +144,7 @@ namespace ConsoleApp3
 }
 
 
-//person.cs
+//main file program.cs
 using System;
 using ConsoleApp3;
 using System.IO;
