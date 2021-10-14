@@ -87,3 +87,101 @@ namespace linked
     }
 }
 
+                      //reading writing objects using strings by class functions(not objcet serializaion)
+//program.cs main file
+using System;
+using System.Collections.Generic;
+using System.IO;
+namespace ConsoleApp3
+{
+    public class Person
+    {
+        private int age;
+        private int cgpa;
+
+        public int Cgpa
+        {
+            get { return cgpa; }
+            set { cgpa = value; }
+        }
+
+        public int Age
+        {
+            get { return age; }
+            set { age = value; }
+        }
+
+        public override string ToString()
+        {
+            return $"Cgpa: {this.cgpa} , Age: {this.age}";
+        }
+        
+        public void WritePersons(List<Person> p)
+        {
+            StreamWriter sw = new StreamWriter("file.txt",append:true);
+            foreach(Person person in p)
+            {
+                sw.WriteLine($"{person.cgpa},{person.age}");
+            }
+            sw.Close();
+        }
+        public List<Person> PrintPersonsToConsole()
+        {
+            List<Person> p = new List<Person>();
+            StreamReader sr = new StreamReader("file.txt");
+            string s = string.Empty;
+            while((s=sr.ReadLine())!=null)
+            {
+                string[] data = s.Split(",");
+                Console.WriteLine(data[0]);
+                Console.WriteLine(data[1]);
+                 Person per = new Person();
+                 Int32.TryParse(data[0], out int c);
+                 per.cgpa = c;
+                 Int32.TryParse(data[1], out int z);
+                per.age = z;
+                 p.Add(per);
+            }
+            sr.Close();
+            return p;
+        }
+    }
+}
+
+//person.cs
+using System;
+using ConsoleApp3;
+using System.IO;
+using System.Collections.Generic;
+
+namespace linked
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string cgpa, age;
+            List<Person> p = new List<Person>();
+            for (int i=0;i<2;i++)
+            {
+                Console.WriteLine("Input cgpa");
+                cgpa = Console.ReadLine();
+                Console.WriteLine("Input age");
+                age = Console.ReadLine();
+                p.Add(new Person(){
+                    Cgpa = Convert.ToInt32(cgpa),
+                    Age = Convert.ToInt32(age),
+                });
+            }
+            Person per = new Person();
+            per.WritePersons(p);
+            p.Clear();
+            p = per.PrintPersonsToConsole();
+            foreach (Person personn in p)
+            {
+                Console.WriteLine(personn.ToString());
+            }
+
+        }
+    }
+}
