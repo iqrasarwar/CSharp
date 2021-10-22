@@ -1,0 +1,217 @@
+using System;
+using System.Collections.Generic;
+using Employe;
+using EmployeRepository;
+namespace EmsInterface
+{
+    public class EMS_Interface
+    {
+        private static EmployeeRepository empRepo = new EmployeeRepository();
+        /// <summary>
+        /// Interface of the EMS
+        /// </summary>
+        static public void startEMS()
+        {
+            string choice;  //  record what user choose to execute
+            int loop = 0;   //loop control variable
+            //Loop executes until user chooses to exit by pressing 9.
+            do
+            {
+                Console.WriteLine("<------------------------Welcome to EMS----------------------->");
+                Console.Write("1. Add Employee\n2. Delete Employee\n3. Update Employee\n4. Calculate Tax\n5. Search Employee\n6. Write all employees in a file\n7. Read all employees from a file\n8. display all employees\n9. exit application\nYour Choice:");
+                choice = "";
+                //loop executes until user enter choice
+                do
+                {
+                    choice = Console.ReadLine();
+                } while (choice == "");
+                loop = 0;
+                //Adding Employee
+                if (choice == "1")
+                {
+                    Console.Write("Enter Name:");
+                    string Name = ""; 
+                    do
+                    {                                     //loop exectutes until user enters a valid name string
+                        Name = Console.ReadLine();
+                    } while (Name == "");
+                    Console.Write("Enter Salary:");
+                    double Salary;
+                    int error = 0;
+                    do
+                    {                                           //loop exectutes until user enters a valid salary in double
+                        error = 0;
+                        string sal = Console.ReadLine();
+                        if (Double.TryParse(sal, out Salary))
+                        {
+                            error = 1;
+                        }
+                        else
+                        {
+                            Console.Write("Enter a valid salary!");
+                        }
+                    } while (error == 0);
+                    Console.Write("Enter dapartment:");
+                    string Department = "";
+                    do
+                    {                                           //loop exectutes until user enters a valid department
+                        Department = Console.ReadLine();
+                    } while (Department == "");
+                    empRepo.AddEmployee(new Employee(Name, Salary, Department));        //create a new object of employee and add it to repositry
+                    Console.WriteLine("Added Sucessfully!\n");
+                }
+                //Deleting employee
+                else if (choice == "2")
+                {
+                    Console.Write("Enter ID:");
+                    string EmpId;
+                    int error = 0, id = 0;
+                    do
+                    {                                           //loop exectutes until user enters a valid id in int
+                        EmpId = Console.ReadLine();
+                        error = 0;
+                        if (Int32.TryParse(EmpId, out id))
+                        {
+                            error = 1;
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Enter a valid ID!");
+                        }
+                    } while (error == 0);
+                    if (empRepo.DeleteEmployee(Convert.ToInt32(EmpId))) // delete employee from repositry
+                    {
+                        Console.WriteLine("Deleted Successfully!\n");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Employee Not Found!\n");
+                    }
+                }
+                //updating employee record
+                else if (choice == "3")
+                {
+                    Console.Write("Enter ID:");
+                    string EmpId;
+                    int error = 0,id=0;
+                    do
+                    {                                           //loop exectutes until user enters a valid id in int
+                        EmpId = Console.ReadLine();
+                        error = 0;
+                        if (Int32.TryParse(EmpId, out id))
+                        {
+                            error = 1;
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Enter a valid ID!");
+                        }
+                    } while (error == 0);
+                    if (empRepo.UpdateEmployee(Convert.ToInt32(EmpId)))
+                    {
+                        Console.WriteLine("Updated Successfully!\n");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Employee Not Found!\n");
+                    }
+                }
+                //calculate tax
+                else if (choice == "4")
+                {
+                    string EmpId;
+                    Console.Write("Enter ID:");
+                    int error = 0, id = 0;
+                    do
+                    {                                           //loop exectutes until user enters a valid id in int
+                        EmpId = Console.ReadLine();
+                        error = 0;
+                        if (Int32.TryParse(EmpId, out id))
+                        {
+                            error = 1;
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Enter a valid ID!");
+                        }
+                    } while (error == 0);
+                    Console.WriteLine(empRepo.CalculateTax(Convert.ToInt32(EmpId), out double tax));
+                }
+                //search employee
+                else if (choice == "5")
+                {
+                    string EmpId;
+                    Console.Write("Enter ID:");
+                    int error = 0, id = 0;
+                    do
+                    {                                           //loop exectutes until user enters a valid id in int
+                        EmpId = Console.ReadLine();
+                        error = 0;
+                        if (Int32.TryParse(EmpId, out id))
+                        {
+                            error = 1;
+
+                        }
+                        else
+                        {
+                            Console.WriteLine("Enter a valid ID!");
+                        }
+                    } while (error == 0);
+                    Employee e = empRepo.SearchEmployee(Convert.ToInt32(EmpId));
+                    if (e.Name != "N/A")
+                    {
+                        e.ToString();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Employee Not Found!\n");
+                    }
+                }
+                //save info in file
+                else if (choice == "6")
+                {
+                    empRepo.SaveEmployeeInfoToFile();
+                    if (empRepo.Emp.Count > 0)
+                        Console.WriteLine("Saved!\n");
+                    else
+                        Console.WriteLine("NO Employee Exists!");
+                }
+                //read info from file
+                else if (choice == "7")
+                {
+                    List<Employee> emp = empRepo.ReadEmployeeInfoFromFile();
+                    if(emp.Count <= 0)
+                        Console.WriteLine("No record exists!");
+                    foreach (Employee e in emp)
+                    {
+                        ///empRepo.AddEmployee(e);
+                        Console.WriteLine(e.ToString());
+                    }
+                }
+                //display all employee info
+                else if (choice == "8")
+                {
+                    if (empRepo.Emp.Count > 0)
+                        empRepo.DisplayEmployeeInformation();
+                    else
+                        Console.WriteLine("No Employee Exist!");
+                }
+                //exit application
+                else if (choice == "9")
+                {
+                    loop = 1;
+                    Console.WriteLine("\t\t\tGoodBye, EMS!");
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    Console.WriteLine("Invalid choice!Enter a valid choice.");
+                }
+            } while (loop == 0);
+            
+        }
+    }
+}
