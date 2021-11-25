@@ -38,9 +38,8 @@ namespace linked
                 arg1: val,
                 arg2: n3);
             Console.WriteLine(data);
-            //{a,b} b here align to left or right by adding spaces, 10 will add 10 spaces to right and -10 to left.
-            //but it is only working for numeric data not strings.
-            data = string.Format(
+            //{a,b} b here align to left or right by adding spaces, 10 will add 10 spaces to left and -10 to right.
+             data = string.Format(
                 format: "   {0}, {1,10}, {2,10}.",
                 arg0: n1,
                 arg1: n2,
